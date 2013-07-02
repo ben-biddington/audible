@@ -11,7 +11,7 @@ module Audible
     end
   end
 
-  def accepts?(e); accept_all_by_default end
+  def accepts?(e); accept_all_by_default; end
 
   private
 
