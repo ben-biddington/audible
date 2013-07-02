@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "audible"
-  s.version = ""
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ben Biddington"]
   s.date = "2013-07-02"
-  s.description = "TODO: longer description of your gem"
+  s.description = "Object communications"
   s.email = "ben.biddington@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
+    "VERSION",
+    "audible.gemspec",
     "lib/audible.rb",
     "lib/audible/audible.rb",
     "spec/listening_spec.rb",
@@ -32,7 +34,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.23"
-  s.summary = "TODO: one-line summary of your gem"
+  s.summary = "Object communications"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
