@@ -33,3 +33,9 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:unit_tests)
+
+task :default => :unit_tests
