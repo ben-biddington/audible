@@ -7,7 +7,12 @@ describe "Observable" do
 
       def poke
         changed
-        notify_observers(Time.now)
+        notify_observers :poked
+      end
+
+      def tap
+        changed
+        notify_observers :tapped
       end
     end.new
   end
@@ -41,6 +46,32 @@ describe "Observable" do
 
     an_observable_object.poke
 
-    an_observer.args.must_not be_nil 
+    an_observer.args.must === :poked
   end
+
+  it "for multiple events the observer must decide for themselves" do
+    an_observer = Class.new do
+      def initialize
+        @poked,@tapped = 0,0
+      end
+
+      def update(args)
+        @poked  = true if args === :poked
+        @tapped = true if args === :tapped
+      end
+      
+      def poked?; @poked === true; end
+      def tapped?; @tapped === true; end
+    end.new
+    
+    an_observable_object.add_observer(an_observer)
+
+    an_observable_object.poke
+    an_observable_object.tap
+
+    an_observer.must be_tapped
+    an_observer.must be_poked
+  end
+
+  it "notifications not sent if updated not called"
 end
