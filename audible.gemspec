@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "audible"
-  s.version = "0.0.2"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ben Biddington"]
-  s.date = "2013-07-02"
+  s.date = "2013-07-11"
   s.description = "Object communications"
   s.email = "ben.biddington@gmail.com"
   s.extra_rdoc_files = [
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
