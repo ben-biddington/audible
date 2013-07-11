@@ -73,5 +73,29 @@ describe "Observable" do
     an_observer.must be_poked
   end
 
-  it "notifications not sent if updated not called"
+  it "notifications are not sent if `changed` not called" do
+    a_bung_observable_object_that_does_not_call_changed = Class.new do
+      require "observer"; include Observable
+
+      def poke
+        notify_observers :poked
+      end
+    end.new
+
+    an_observer = Class.new do
+      def update(args)
+        @notified = true
+      end
+      
+      def notified?; @notified === true; end
+    end.new
+
+    a_bung_observable_object_that_does_not_call_changed.add_observer an_observer
+
+    a_bung_observable_object_that_does_not_call_changed.poke
+
+    an_observer.must_not(be_notified, 
+      "Even though `notify_observers` was called, no notification was sent because you have to call `changed` beforehand."
+    )
+  end
 end
