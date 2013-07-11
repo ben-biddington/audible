@@ -5,6 +5,7 @@ class Shell
   
   class << self
     def exec(what)
+      require "open3"
       Open3.popen2(what, :err => [:child, :out]) do |i,o,t|
         o.each_line {|line| notify :progress, line}
       end
