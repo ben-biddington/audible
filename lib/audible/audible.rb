@@ -1,9 +1,13 @@
 module Audible
-  def on(event, &block)
-    listeners_for(event) << block if block_given?
+  def on(*events, &block)
+    events.each{|e| attach(e, &block)}
   end
 
   protected
+
+  def attach(event,&block)
+    listeners_for(event) << block if block_given?
+  end
 
   def notify(event, *args)
     listeners_for(event).each do |listener|
