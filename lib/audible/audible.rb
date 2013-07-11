@@ -6,7 +6,9 @@ module Audible
   protected
 
   def attach(event,&block)
-    listeners_for(event) << block if block_given?
+    fail no_way_to_notify unless block_given?
+
+    listeners_for(event) << block
   end
 
   def notify(event, *args)
@@ -18,6 +20,10 @@ module Audible
   def accepts?(e); accept_all_by_default; end
 
   private
+
+  def no_way_to_notify
+    "No block supplied. How will I notify you?"
+  end
 
   def accept_all_by_default; true; end
 

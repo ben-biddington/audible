@@ -32,6 +32,10 @@ describe "An audible object" do
     expect{an_audible_object.on(:xxx_does_not_exist_xxx){}}.to raise_error /Event .+ not supported/
   end
 
+  it "fails without a block" do
+    expect{an_audible_object.on :tapped}.to raise_error /No block supplied. How will I notify you?/
+  end
+
   it "you can subscribe to multiple events at once and receive multiple notifications" do
     notifications = 0
     
