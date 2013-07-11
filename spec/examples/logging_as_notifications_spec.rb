@@ -38,7 +38,7 @@ class LogSpy
   end
 end
 
-describe BusyBody," and notifying instead of logging" do
+describe BusyBody, "and notifying instead of logging" do
   it "attach the log by notification rather than as dependency" do
     busy_body = BusyBody.new
     
