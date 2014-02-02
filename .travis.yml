@@ -5,6 +5,7 @@ rvm:
 branches:
   only:
     - master
+    - distributed
 gemfile: Gemfile
 notifications:
   recipients:
