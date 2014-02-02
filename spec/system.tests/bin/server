@@ -7,10 +7,8 @@ class TimeServer
   end
 
   def progress
-    5.times do 
-      notify_observers Time.now    
-      sleep 2  
-    end
+    changed
+    notify_observers "progress"
   end   
 end
 
@@ -26,7 +24,7 @@ uri="druby://127.0.0.1:#{port}"
 
 DRb.start_service(uri, FRONT_OBJECT)
 
-puts "Server has started on port <#{port}>, thread <#{DRb.thread.inspect}>"
+puts "Server has started on port <#{port}>"
 
 # Wait for the drb server thread to finish before exiting.
 DRb.thread.join
