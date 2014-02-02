@@ -7,8 +7,10 @@ class TimeServer
   end
 
   def progress
-    changed
-    notify_observers "progress"
+    3.times do 
+      changed
+      notify_observers Time.now.to_s
+    end		    
   end   
 end
 
