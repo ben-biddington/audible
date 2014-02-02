@@ -1,18 +1,28 @@
-require 'drb/drb'
-
-port = 9999
-
-uri="druby://127.0.0.1:#{port}"
-
 class TimeServer
+  require 'drb/observer'
+  include DRb::DRbObservable
+
   def get_current_time
     return Time.now
   end
+
+  def progress
+    5.times do 
+      notify_observers Time.now    
+      sleep 2  
+    end
+  end   
 end
 
 FRONT_OBJECT=TimeServer.new
 
 $SAFE = 1
+
+require 'drb/drb'
+
+port = 9999
+
+uri="druby://127.0.0.1:#{port}"
 
 DRb.start_service(uri, FRONT_OBJECT)
 
