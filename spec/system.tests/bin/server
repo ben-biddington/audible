@@ -16,7 +16,7 @@ end
 
 FRONT_OBJECT=TimeServer.new
 
-$SAFE = 1
+$SAFE = 0
 
 require 'drb/drb'
 
