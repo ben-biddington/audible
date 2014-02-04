@@ -6,7 +6,9 @@ describe "Basic drb connections" do
     
     @pid = Process.spawn "bundle exec ruby #{exe}"
 
-    sleep 5
+    while !File.exists?(File.join ".", ".pid")
+      sleep 0.5
+    end
 
     require 'drb/drb'
 
