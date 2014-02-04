@@ -9,7 +9,7 @@ describe "Basic drb connections" do
     @pid = Process.spawn "bundle exec ruby #{exe}", :err=>:out, :out => ".log"
 
     while Pidfile.missing?
-      sleep 0.5
+      sleep 0.25
     end
 
     require 'drb/drb'
