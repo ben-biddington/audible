@@ -6,8 +6,6 @@ describe "Basic drb connections" do
     
     @pid = Process.spawn "bundle exec ruby #{exe}"
 
-    puts @pid
-
     sleep 5
 
     require 'drb/drb'
@@ -18,7 +16,7 @@ describe "Basic drb connections" do
   end
 
   after :all do
-    Process.kill("SIGKILL", @pid)
+    Process.kill("INT", @pid)
     Process.wait
   end
 
