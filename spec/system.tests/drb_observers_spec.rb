@@ -4,7 +4,9 @@ describe "Basic drb connections" do
   before :all do
     exe = File.join(File.dirname(__FILE__), "bin", "server")
     
-    @pid = Process.spawn "bundle exec ruby #{exe}"
+    require 'open3'
+    
+    @pid = Process.spawn "bundle exec ruby #{exe}", :err=>:out, :out => ".log"
 
     while Pidfile.missing?
       sleep 0.5
