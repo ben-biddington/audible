@@ -1,10 +1,14 @@
 require "spec_helper"
 
-describe "Basic drb connections" do
-  before :all do
+class DrbServer
+  attr_reader :url
+
+  def initialize(url)
+    @url = url
+  end
+
+  def start
     exe = File.join(File.dirname(__FILE__), "bin", "server")
-    
-    require 'open3'
     
     @pid = Process.spawn "bundle exec ruby #{exe}", :err=>:out, :out => ".log"
 
@@ -15,13 +19,22 @@ describe "Basic drb connections" do
     require 'drb/drb'
 
     DRb.start_service
+  end
 
-    @timeserver = DRbObject.new_with_uri "druby://127.0.0.1:9999"
+  def kill
+    Process.kill("INT", @pid)
+    Process.wait    
+  end
+end
+
+describe "Basic drb connections" do
+  before :all do
+    @server = DrbServer.new("druby://127.0.0.1:9999").tap {|server| server.start}
+    @timeserver = DRbObject.new_with_uri @server.url 
   end
 
   after :all do
-    Process.kill("INT", @pid)
-    Process.wait
+    @server.kill
   end
 
   it "tells me the time" do
