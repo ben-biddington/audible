@@ -43,4 +43,16 @@ describe "Basic drb connections" do
     
     expect(an_observer).to be_notified
   end
+
+  it "can also get audible notifications" do
+    notified = false
+
+    @timeserver.on(:progress) do |e,args|
+      notified = true
+    end
+
+    @timeserver.progress
+
+    expect(notified).to be_true
+  end
 end

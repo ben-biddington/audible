@@ -3,6 +3,7 @@ require File.join ".", "lib", "audible"
 class TimeServer
   require 'drb/observer'
   include DRb::DRbObservable
+  include Audible
 
   def get_current_time
     return Time.now
@@ -12,6 +13,7 @@ class TimeServer
     3.times do 
       changed
       notify_observers Time.now.to_s
+      notify :progress, Time.now.to_s
     end		    
   end   
 end
