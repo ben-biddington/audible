@@ -1,17 +1,4 @@
-class Pidfile
-  require "fileutils"; extend FileUtils
-
-  class << self
-    def new(pid=$$)
-      File.open path, "w" do |f|
-        f.puts pid
-      end
-    end
-
-    def delete; rm path; end
-    def path; File.join ".", ".pid"; end
-  end
-end
+require File.join ".", "lib", "audible"
 
 class TimeServer
   require 'drb/observer'
