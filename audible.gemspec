@@ -5,16 +5,16 @@
 
 Gem::Specification.new do |s|
   s.name = "audible"
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ben Biddington"]
-  s.date = "2013-07-11"
+  s.date = "2014-02-06"
   s.description = "Object communications"
   s.email = "ben.biddington@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.rdoc"
+    "README.md"
   ]
   s.files = [
     ".document",
@@ -22,14 +22,23 @@ Gem::Specification.new do |s|
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
-    "README.rdoc",
+    "README.md",
     "Rakefile",
     "VERSION",
     "audible.gemspec",
     "lib/audible.rb",
     "lib/audible/audible.rb",
+    "lib/audible/pidfile.rb",
+    "spec/and_how_it_differs_from_observable_spec.rb",
+    "spec/examples/a_notifying_shell_spec.rb",
+    "spec/examples/logging_as_notifications_spec.rb",
     "spec/listening_spec.rb",
-    "spec/spec_helper.rb"
+    "spec/relaying_notifications/about_the_notifications_spec.rb",
+    "spec/relaying_notifications/can_relay_notifications_spec.rb",
+    "spec/spec_helper.rb",
+    "spec/system.tests/drb/bin/server",
+    "spec/system.tests/drb/drb_observers_spec.rb",
+    "spec/system.tests/drb/support/drb_server.rb"
   ]
   s.homepage = "http://github.com/ben-biddington/audible"
   s.licenses = ["MIT"]
