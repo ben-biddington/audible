@@ -3,6 +3,10 @@ module Audible
     events.each{|e| attach(e, &block)}
   end
 
+  def relay(source, event)
+    source.on(event){|e,args| notify event,args.first}
+  end
+
   protected
 
   def attach(event,&block)
