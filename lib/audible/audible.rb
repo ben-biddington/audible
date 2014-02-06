@@ -3,8 +3,9 @@ module Audible
     events.each{|e| attach(e, &block)}
   end
 
-  def relay(source, event)
-    source.on(event){|e,args| notify event, args.first}
+  def relay(source, event, opts ={})
+    name = opts[:as] || event
+    source.on(event){|e,args| notify name, args.first}
   end
 
   protected
