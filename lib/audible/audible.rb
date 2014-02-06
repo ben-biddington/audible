@@ -4,7 +4,7 @@ module Audible
   end
 
   def relay(source, event)
-    source.on(event){|e,args| notify event,args.first}
+    source.on(event){|e,args| notify event, args.first}
   end
 
   protected

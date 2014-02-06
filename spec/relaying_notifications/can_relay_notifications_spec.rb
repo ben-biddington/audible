@@ -39,6 +39,5 @@ describe "Relaying notifications" do
     expect(notified).to be_true, "Expected the notification to have been relayed"
   end
 
-  it "relays identical arguments and event name"
   it "can be asked to rename the notification to something else"
 end
