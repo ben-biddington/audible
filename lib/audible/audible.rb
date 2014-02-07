@@ -4,7 +4,7 @@ module Audible
   end
 
   def add_listener(object)
-    listeners << object
+    listeners.add object
   end
 
   def relay(source, event, opts ={})
@@ -45,5 +45,5 @@ module Audible
   end
 
   def callbacks; @callbacks ||= {}; end
-  def listeners; @listeners ||= []; end
+  def listeners; @listeners ||= Listeners.new; end
 end

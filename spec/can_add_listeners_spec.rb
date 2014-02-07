@@ -16,8 +16,8 @@ describe "Adding listeners" do
     end.new
   end
 
-  it "works by calling update, just like Observable" do
-    listener = Class.new do
+  let :listener do
+    Class.new do
       def initialize
         @notified = false
       end
@@ -30,7 +30,9 @@ describe "Adding listeners" do
         @notified
       end
     end.new
+  end
 
+  it "works by calling update, just like Observable" do
     an_audible_object.add_listener listener
 
     an_audible_object.poke
@@ -38,8 +40,12 @@ describe "Adding listeners" do
     expect(listener).to be_notified
   end
 
+  it "you cannot add the same object twice" do
+    an_audible_object.add_listener listener
+    expect{an_audible_object.add_listener listener}.to raise_error /Cannot add the same listener more than once/
+  end
+
   it "you get the event name and the args, just like ordinary notifications"
-  it "you cannot add the same object twice"
   it "shall we check that listener responds to the right message?"
   it "you can delete listeners too which makes notifications stop"
   it "you can query for the number of listeners -- that way we can tell unsubscribe works"
