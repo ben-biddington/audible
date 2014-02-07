@@ -31,8 +31,8 @@ describe "Adding listeners" do
         @notified
       end
 
-      def notified_with?(opts ={})
-        notified? and @args[:event] === opts[:event]
+      def notified_with?(expected ={})
+        notified? and @args[:event] === expected[:event] and @args[:args] == expected[:args]
       end
 
       def reset; @notified = false; end
