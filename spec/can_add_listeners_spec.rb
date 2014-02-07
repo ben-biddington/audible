@@ -5,7 +5,7 @@ describe "Adding listeners" do
      an_audible_class = Class.new do
       require "audible"; include Audible
 
-      def poke; notify :poked ; end
+      def poke(args ={}); notify :poked, args ; end
       def tap(args ={}) ; notify :tapped, args; end
 
       protected
@@ -19,15 +19,20 @@ describe "Adding listeners" do
   let :listener do
     Class.new do
       def initialize
-        @notified = false
+        @notified,@args = false,nil
       end
 
       def update(args)
         @notified = true
+        @args = args
       end
 
       def notified?
         @notified
+      end
+
+      def notified_with?(opts ={})
+        notified? and @args[:event] === opts[:event]
       end
 
       def reset; @notified = false; end
@@ -65,8 +70,16 @@ describe "Adding listeners" do
     expect{ an_audible_object.delete_listener Object.new }.to raise_error /Cannot delete something that was not listening/
   end
   
-  it "you get the event name and the args, just like ordinary notifications"
-  it "shall we check that listener responds to the right message?"
+  it "you get the event name and the args, just like ordinary notifications" do
+    an_audible_object.add_listener listener
+    
+    an_audible_object.poke({:a => 1, :b => 2})
 
+    expected_args = [{:a => 1, :b => 2}]
+
+    expect(listener).to be_notified_with({:event => :poked, :args => expected_args})
+  end
+
+  it "shall we check that listener responds to the right message?"
   it "you can query for the number of listeners -- that way we can tell unsubscribe works"
 end

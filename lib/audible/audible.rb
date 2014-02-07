@@ -29,7 +29,7 @@ module Audible
       callback.call event, args
     end
 
-    listeners.each{|listener| listener.update({:event => event, :args => [args]})}
+    listeners.each{|listener| listener.update({:event => event, :args => args})}
   end
 
   def accepts?(e); accept_all_by_default; end
