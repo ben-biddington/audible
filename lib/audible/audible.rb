@@ -16,6 +16,10 @@ module Audible
     source.on(event){|e,args| notify name, args.first}
   end
 
+  def listener_count
+    listeners.size
+  end
+
   protected
 
   def attach(event,&block)

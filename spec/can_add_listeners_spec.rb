@@ -86,5 +86,15 @@ describe "Adding listeners" do
     expect{ an_audible_object.add_listener a_bung_listener_with_no_update }.to raise_error /Cannot add listener unless it responds to/
   end
 
-  it "you can query for the number of listeners -- that way we can tell unsubscribe works"
+  it "can be queried for the number of listeners" do
+    expect(an_audible_object.listener_count).to eql 0
+
+    an_audible_object.add_listener listener
+
+    expect(an_audible_object.listener_count).to eql 1
+
+    an_audible_object.delete_listener listener
+
+    expect(an_audible_object.listener_count).to eql 0
+  end
 end

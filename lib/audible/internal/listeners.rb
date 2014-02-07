@@ -18,6 +18,8 @@ class Listeners
     listeners.each {|listener| block.call listener}
   end
 
+  def size; listeners.size; end
+
   private
 
   def verify(listener)
