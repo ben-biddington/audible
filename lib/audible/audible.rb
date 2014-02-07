@@ -16,9 +16,7 @@ module Audible
     source.on(event){|e,args| notify name, args.first}
   end
 
-  def listener_count
-    listeners.size
-  end
+  def listener_count; listeners.size; end
 
   protected
 
@@ -29,10 +27,7 @@ module Audible
   end
 
   def notify(event, *args)
-    callbacks_for(event).each do |callback|
-      callback.call event, args
-    end
-
+    callbacks_for(event).each{|callback| callback.call event, args}
     listeners.each{|listener| listener.update({:event => event, :args => args})}
   end
 
