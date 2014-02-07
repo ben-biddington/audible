@@ -3,6 +3,10 @@ module Audible
     events.each{|e| attach(e, &block)}
   end
 
+  def add_listener(object)
+    listeners << object
+  end
+
   def relay(source, event, opts ={})
     name = opts[:as] || event
     source.on(event){|e,args| notify name, args.first}
@@ -13,13 +17,15 @@ module Audible
   def attach(event,&block)
     fail no_way_to_notify unless block_given?
 
-    listeners_for(event) << block
+    callbacks_for(event) << block
   end
 
   def notify(event, *args)
-    listeners_for(event).each do |listener|
-      listener.call event, args
+    callbacks_for(event).each do |callback|
+      callback.call event, args
     end
+
+    listeners.each{|listener| listener.update({:event => event, :args => [args]})}
   end
 
   def accepts?(e); accept_all_by_default; end
@@ -32,11 +38,12 @@ module Audible
 
   def accept_all_by_default; true; end
 
-  def listeners_for(event)
+  def callbacks_for(event)
     fail "Event <#{event}> not supported by #{self.class}." unless accepts?(event) === true
-    listeners[event] = [] unless listeners.has_key? event
-    listeners[event]
+    callbacks[event] = [] unless callbacks.has_key? event
+    callbacks[event]
   end
 
-  def listeners; @listeners ||= {}; end
+  def callbacks; @callbacks ||= {}; end
+  def listeners; @listeners ||= []; end
 end
