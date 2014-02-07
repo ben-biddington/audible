@@ -7,6 +7,10 @@ module Audible
     listeners.add object
   end
 
+  def delete_listener(object)
+    listeners.delete object
+  end
+
   def relay(source, event, opts ={})
     name = opts[:as] || event
     source.on(event){|e,args| notify name, args.first}

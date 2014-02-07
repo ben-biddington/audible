@@ -9,6 +9,11 @@ class Listeners
     listeners << listener
   end
 
+  def delete(listener)
+    the_one_to_delete = listeners.find{|l| l === listener}
+    listeners.delete the_one_to_delete
+  end
+
   def each(&block)
     listeners.each {|listener| block.call listener}
   end

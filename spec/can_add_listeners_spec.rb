@@ -29,6 +29,8 @@ describe "Adding listeners" do
       def notified?
         @notified
       end
+
+      def reset; @notified = false; end
     end.new
   end
 
@@ -45,8 +47,23 @@ describe "Adding listeners" do
     expect{an_audible_object.add_listener listener}.to raise_error /Cannot add the same listener more than once/
   end
 
+  it "you can delete listeners too which makes notifications stop" do
+    an_audible_object.add_listener listener
+    
+    an_audible_object.poke
+
+    expect(listener).to be_notified
+    
+    an_audible_object.delete_listener listener
+    
+    listener.reset
+
+    expect(listener).to_not be_notified
+  end
+
+  it "fails to delete listener if it was never listening in the first place"
   it "you get the event name and the args, just like ordinary notifications"
   it "shall we check that listener responds to the right message?"
-  it "you can delete listeners too which makes notifications stop"
+
   it "you can query for the number of listeners -- that way we can tell unsubscribe works"
 end
