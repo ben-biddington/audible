@@ -80,6 +80,11 @@ describe "Adding listeners" do
     expect(listener).to be_notified_with({:event => :poked, :args => expected_args})
   end
 
-  it "shall we check that listener responds to the right message?"
+  it "fails to add a listener that does not respond to the right message" do
+    a_bung_listener_with_no_update = Object.new
+
+    expect{ an_audible_object.add_listener a_bung_listener_with_no_update }.to raise_error /Cannot add listener unless it responds to/
+  end
+
   it "you can query for the number of listeners -- that way we can tell unsubscribe works"
 end
