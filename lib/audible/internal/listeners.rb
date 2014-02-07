@@ -4,8 +4,6 @@ class Listeners
   end
 
   def add(listener)
-    fail "Cannot add the same listener more than once" if exists? listener
-
     verify listener
 
     listeners << listener
@@ -24,10 +22,19 @@ class Listeners
   private
 
   def verify(listener)
+    must_not_exist_already listener
+    must_respond_to_right_message listener
+  end
+
+  def must_not_exist_already(listener)
+    fail "Cannot add the same listener more than once" if exists? listener
+  end
+  
+  def must_respond_to_right_message(listener)
     it_responds_correctly = listener.respond_to?(:update) and listener.method(:update).arity === 1
     fail "Cannot add listener unless it responds to update with arity one" unless it_responds_correctly
   end
-
+  
   def exists?(listener)
     listeners.any?{|l| l === listener}
   end
