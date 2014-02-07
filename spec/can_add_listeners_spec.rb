@@ -61,7 +61,10 @@ describe "Adding listeners" do
     expect(listener).to_not be_notified
   end
 
-  it "fails to delete listener if it was never listening in the first place"
+  it "fails to delete listener if it was never listening in the first place" do
+    expect{ an_audible_object.delete_listener Object.new }.to raise_error /Cannot delete something that was not listening/
+  end
+  
   it "you get the event name and the args, just like ordinary notifications"
   it "shall we check that listener responds to the right message?"
 

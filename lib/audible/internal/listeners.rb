@@ -11,6 +11,7 @@ class Listeners
 
   def delete(listener)
     the_one_to_delete = listeners.find{|l| l === listener}
+    fail "Cannot delete something that was not listening" if the_one_to_delete.nil?
     listeners.delete the_one_to_delete
   end
 
