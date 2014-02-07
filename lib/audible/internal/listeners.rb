@@ -10,9 +10,8 @@ class Listeners
   end
 
   def delete(listener)
-    the_one_to_delete = listeners.find{|l| l === listener}
-    fail "Cannot delete something that was not listening" if the_one_to_delete.nil?
-    listeners.delete the_one_to_delete
+    must_exist listener
+    listeners.delete listener
   end
 
   def each(&block)
@@ -24,6 +23,11 @@ class Listeners
   def verify(listener)
     must_not_exist_already listener
     must_respond_to_right_message listener
+  end
+
+  def must_exist(listener)
+    the_one_to_delete = listeners.find{|l| l === listener}
+    fail "Cannot delete something that was not listening" if the_one_to_delete.nil?
   end
 
   def must_not_exist_already(listener)
