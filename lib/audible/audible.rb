@@ -17,9 +17,17 @@ module Audible
   end
 
   def notify(event, *args)
+    the_first_error = nil
+    
     listeners_for(event).each do |listener|
-      listener.call event, args
+      begin
+        listener.call event, args
+      rescue Exception => e
+        the_first_error ||= e
+      end
     end
+    
+    raise the_first_error if the_first_error
   end
 
   def accepts?(e); accept_all_by_default; end
