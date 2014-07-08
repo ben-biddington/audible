@@ -24,18 +24,10 @@ Jeweler::Tasks.new do |gem|
 end
 Jeweler::RubygemsDotOrgTasks.new
 
-require 'rdoc/task'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "audible #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
-
 require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:unit_tests)
+RSpec::Core::RakeTask.new(:unit_tests) do |t|
+    t.pattern = File.join 'spec', 'unit.tests', '**', '*_spec.rb'
+end
 
 task :default => :unit_tests
